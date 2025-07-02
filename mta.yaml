@@ -27,7 +27,7 @@ modules:
       - name: Dev-destination
       - name: Dev-messaging
       - name: Dev-db
-      - name: Dev-auth
+      - name: Dev-auths
 
   - name: Dev-db-deployer
     type: hdb
@@ -54,12 +54,9 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
-  - name: Dev-auth
+  - name: Dev-auths
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
-      config:
-        xsappname: Dev-${org}-${space}
-        tenant-mode: dedicated

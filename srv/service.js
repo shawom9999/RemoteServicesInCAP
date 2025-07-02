@@ -2,10 +2,10 @@ module.exports = (srv => {
 
     srv.on('READ', ['Groups', 'GroupMemberships2'], async (req) => {
         const projectExtSrv = await cds.connect.to("ProjectServiceV2");
-        // const results = await projectExtSrv.run(req.query);
-        const results = await projectExtSrv.send({
-            query: req.query, headers: { APIKey: process.env.API_KEY } 
-        });
+        const results = await projectExtSrv.run(req.query);
+        // const results = await projectExtSrv.send({
+        //     query: req.query, headers: { APIKey: process.env.API_KEY } 
+        // });
         req.reply(results);
     });
 

@@ -3,7 +3,7 @@ using { Dev as my } from '../db/schema.cds';
 using service.ProjectServiceV2 as ProjectServiceV2 from './external/ProjectServiceV2';
 
 @path: '/service/Projects'
-@requires: 'authenticated-user'
+// @requires: 'authenticated-user'
 service Projects {
   @odata.draft.enabled
   entity Projects as projection on my.Projects;
