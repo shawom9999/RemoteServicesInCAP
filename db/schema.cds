@@ -1,8 +1,5 @@
-using { ProjectDemand } from '../srv/external/ProjectDemand.cds'; 
 namespace Dev;
 using { cuid, managed, Currency } from '@sap/cds/common';
-
-// using { service.ProjectServiceV2.Groups as Groups }  from '../srv/external/ProjectServiceV2';
 
 @assert.unique: { name: [name] }
 entity Projects : cuid, managed {
@@ -34,10 +31,3 @@ entity Category : cuid {
   description: String(100);
   tasks: Association to many Tasks on tasks.category = $self;
 }
-
-
-// External Service mashup
-
-// entity ProjectGroups : cuid {
-  
-// }

@@ -1,4 +1,3 @@
-using { ProjectDemand } from './external/ProjectDemand.cds'; 
 using { Dev as my } from '../db/schema.cds';
 
 using service.ProjectServiceV2 as ProjectServiceV2 from './external/ProjectServiceV2';

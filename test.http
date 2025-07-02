@@ -21,4 +21,7 @@
 
 
 ### Mashup of Project Demands
+
+GET {{server}}/myService2/ProjectDemand
+
 GET {{server}}/myService2/ProjectDemand?$expand=projectDemand
