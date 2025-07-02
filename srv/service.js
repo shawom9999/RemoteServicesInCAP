@@ -1,10 +1,28 @@
 module.exports = (srv => {
 
-    srv.on('READ', ['Groups', 'GroupMemberships'], async (req) => {
+    srv.on('READ', ['Groups', 'GroupMemberships2'], async (req) => {
         const projectExtSrv = await cds.connect.to("ProjectServiceV2");
         // const results = await projectExtSrv.run(req.query);
         const results = await projectExtSrv.send({
             query: req.query, headers: { APIKey: process.env.API_KEY } 
+        });
+        req.reply(results);
+    });
+
+    srv.on('READ', ['GroupMemberships'], async (req) => {
+        const projectExtSrv = await cds.connect.to("ProjectServiceV2");
+        const sQuery = SELECT.from("service.ProjectServiceV2.GroupMemberships", bp => {
+            bp('*'),
+            bp.toUser(user => {
+              user('*')
+            }),
+            bp.toGroup(grp => {
+                grp('*')
+            })
+        });
+        const results = await projectExtSrv.send({
+            query: sQuery,
+            headers: { APIKey: process.env.API_KEY } 
         });
         req.reply(results);
     });
