@@ -1,0 +1,21 @@
+ID;name;description;dueDate;priority;completed;category_ID;project_ID
+e6d2717c-f780-4b12-890c-55c2872b411e;Design Database;Create the database schema for the project;2023-07-01;High;false;e6d2717c-f780-4b12-890c-55c2872b411e;e6d2717c-f780-4b12-890c-55c2872b411e
+d31db312-d532-4599-b9a8-10687e8fc96f;Develop API;Implement RESTful API for data access;2023-07-15;Medium;false;d31db312-d532-4599-b9a8-10687e8fc96f;e6d2717c-f780-4b12-890c-55c2872b411e
+a8df42ef-a83b-49b0-8cc7-784ded34ba8e;Create UI Mockups;Design user interface mockups for the application;2023-07-10;High;false;496ed775-8614-4aa4-ae47-0a418253a041;e6d2717c-f780-4b12-890c-55c2872b411e
+a8c9b331-a815-404a-a636-30dc68b8dcea;Write Unit Tests;Develop unit tests for the API;2023-07-20;Medium;false;d59a7ece-1b94-4e85-90a0-d4f3ab9313e7;e6d2717c-f780-4b12-890c-55c2872b411e
+960fe24c-ad5e-4b05-8032-776af94a2e59;Deploy Application;Deploy the application to production;2023-07-25;High;false;960fe24c-ad5e-4b05-8032-776af94a2e59;e6d2717c-f780-4b12-890c-55c2872b411e
+e81e5f50-35f2-44a5-87d6-a451b7203e01;Conduct User Research;Gather user feedback for UI improvements;2023-07-30;Medium;false;496ed775-8614-4aa4-ae47-0a418253a041;d31db312-d532-4599-b9a8-10687e8fc96f
+77d94562-93e0-4533-b968-3bc12a0e822a;Implement Security Measures;Add security features to the application;2023-08-01;High;false;38740e5e-6bac-4959-97fb-f5ceec31732c;d31db312-d532-4599-b9a8-10687e8fc96f
+496ed775-8614-4aa4-ae47-0a418253a041;Optimize Database Queries;Improve the performance of database queries;2023-08-05;Medium;false;e6d2717c-f780-4b12-890c-55c2872b411e;d31db312-d532-4599-b9a8-10687e8fc96f
+38740e5e-6bac-4959-97fb-f5ceec31732c;Prepare Documentation;Create user and technical documentation;2023-08-10;Low;false;e6d2717c-f780-4b12-890c-55c2872b411e;a8df42ef-a83b-49b0-8cc7-784ded34ba8e
+fa700271-2b03-42f1-947a-fff630c6cb37;Conduct Code Review;Review code for quality and best practices;2023-08-15;Medium;false;d59a7ece-1b94-4e85-90a0-d4f3ab9313e7;a8df42ef-a83b-49b0-8cc7-784ded34ba8e
+89786be2-f74f-43e3-b41d-0de7b4a4fc60;Launch Marketing Campaign;Prepare marketing materials for the launch;2023-08-20;High;false;1ceed5b4-9692-4516-84e7-d8ca732d145e;a8df42ef-a83b-49b0-8cc7-784ded34ba8e
+1ceed5b4-9692-4516-84e7-d8ca732d145e;Gather Performance Metrics;Collect data on application performance;2023-08-25;Medium;false;b734cfee-a5e9-4612-8b1f-36c5934d9d69;a8df42ef-a83b-49b0-8cc7-784ded34ba8e
+c0e26273-4632-4d5d-a07b-e71baed16cc4;Create User Guides;Develop user guides for the application;2023-08-30;Low;false;e6d2717c-f780-4b12-890c-55c2872b411e;a8c9b331-a815-404a-a636-30dc68b8dcea
+b734cfee-a5e9-4612-8b1f-36c5934d9d69;Conduct Training Sessions;Train users on how to use the application;2023-09-01;Medium;false;4cee9677-09c1-4f4f-8b34-b54c189de01e;a8c9b331-a815-404a-a636-30dc68b8dcea
+d4b72c9f-9200-47b7-8a15-73b35183f0ac;Monitor System;Ensure the system is running smoothly post-launch;2023-09-05;High;false;960fe24c-ad5e-4b05-8032-776af94a2e59;a8c9b331-a815-404a-a636-30dc68b8dcea
+d59a7ece-1b94-4e85-90a0-d4f3ab9313e7;Collect Feedback;Gather user feedback for future improvements;2023-09-10;Medium;false;e6d2717c-f780-4b12-890c-55c2872b411e;960fe24c-ad5e-4b05-8032-776af94a2e59
+4cee9677-09c1-4f4f-8b34-b54c189de01e;Update Software;Apply necessary updates to the application;2023-09-15;Low;false;e6d2717c-f780-4b12-890c-55c2872b411e;960fe24c-ad5e-4b05-8032-776af94a2e59
+b2013648-d0fc-45ac-a74d-dc85a52dafd1;Perform Security Audit;Review the application for security vulnerabilities;2023-09-20;High;false;38740e5e-6bac-4959-97fb-f5ceec31732c;960fe24c-ad5e-4b05-8032-776af94a2e59
+bbfd05f5-c27e-44ff-81fa-b7b5701bd72e;Plan Next Sprint;Prepare tasks for the next development sprint;2023-09-25;Medium;false;e6d2717c-f780-4b12-890c-55c2872b411e;e81e5f50-35f2-44a5-87d6-a451b7203e01
+fceec508-60eb-4a8e-9358-51f3479394a0;Evaluate Project Success;Analyze project outcomes and success metrics;2023-09-30;High;false;e6d2717c-f780-4b12-890c-55c2872b411e;e81e5f50-35f2-44a5-87d6-a451b7203e01

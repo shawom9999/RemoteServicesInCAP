@@ -1,0 +1,24 @@
+@server = http://localhost:4004
+
+## GET Groups
+# GET {{server}}/service/Projects/Groups?$filter=type eq 'PROJECT_PARTNER'
+
+## GET Groups and associated Group memberships
+# GET {{server}}/service/Projects/Groups?$expand=toGroupMemberships
+
+## get GroupMemberships
+# GET {{server}}/service/Projects/GroupMemberships
+
+## GET GroupMemberships and associated Group
+# GET {{server}}/service/Projects/GroupMemberships?$expand=toGroup
+
+## Call myservice2 from service/Projects
+# GET {{server}}/service/Projects/getProjects2()
+
+# GET {{server}}/myService2/getProjects()
+
+# GET {{server}}/myService2/Groups
+
+
+### Mashup of Project Demands
+GET {{server}}/myService2/ProjectDemand?$expand=projectDemand

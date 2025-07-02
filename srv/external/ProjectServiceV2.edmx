@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="service.ProjectServiceV2" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="GroupMemberships" EntityType="service.ProjectServiceV2.GroupMemberships">
+          <NavigationPropertyBinding Path="toGroup" Target="Groups"/>
+          <NavigationPropertyBinding Path="toUser" Target="Users"/>
+        </EntitySet>
+        <EntitySet Name="Groups" EntityType="service.ProjectServiceV2.Groups">
+          <NavigationPropertyBinding Path="toGroupMemberships" Target="GroupMemberships"/>
+        </EntitySet>
+        <EntitySet Name="Users" EntityType="service.ProjectServiceV2.Users"/>
+      </EntityContainer>
+      <EntityType Name="GroupMemberships">
+        <Key>
+          <PropertyRef Name="groupMembershipId"/>
+        </Key>
+        <Property Name="groupMembershipId" Type="Edm.String" MaxLength="36" Nullable="false"/>
+        <Property Name="groupId" Type="Edm.String" MaxLength="36" Nullable="false"/>
+        <Property Name="businessPartnerId" Type="Edm.String" MaxLength="36" Nullable="false"/>
+        <NavigationProperty Name="toGroup" Type="service.ProjectServiceV2.Groups">
+          <ReferentialConstraint Property="groupId" ReferencedProperty="groupId"/>
+        </NavigationProperty>
+        <NavigationProperty Name="toUser" Type="service.ProjectServiceV2.Users"/>
+      </EntityType>
+      <EntityType Name="Groups">
+        <Key>
+          <PropertyRef Name="groupId"/>
+        </Key>
+        <Property Name="groupId" Type="Edm.String" MaxLength="36" Nullable="false"/>
+        <Property Name="type" Type="Edm.String" MaxLength="16"/>
+        <Property Name="projectId" Type="Edm.String" MaxLength="40" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255" Nullable="false"/>
+        <Property Name="description" Type="Edm.String" MaxLength="255"/>
+        <NavigationProperty Name="toGroupMemberships" Type="Collection(service.ProjectServiceV2.GroupMemberships)"/>
+      </EntityType>
+      <EntityType Name="Users">
+        <Key>
+          <PropertyRef Name="projectPartnerMembershipId"/>
+        </Key>
+        <Property Name="projectPartnerMembershipId" Type="Edm.String" MaxLength="36" Nullable="false"/>
+        <Property Name="projectMembershipId" Type="Edm.String" MaxLength="36"/>
+        <Property Name="userRoleName" Type="Edm.String" MaxLength="255"/>
+        <Property Name="parentProjectPartnerId" Type="Edm.String" MaxLength="36"/>
+        <Property Name="parentCompanyRoleName" Type="Edm.String" MaxLength="255"/>
+        <Property Name="projectId" Type="Edm.String" MaxLength="40"/>
+        <Property Name="businessPartnerId" Type="Edm.String" MaxLength="36"/>
+        <Property Name="businessPartnerParentId" Type="Edm.String" MaxLength="36"/>
+        <Property Name="firstName" Type="Edm.String" MaxLength="225"/>
+        <Property Name="middleName" Type="Edm.String" MaxLength="225"/>
+        <Property Name="lastName" Type="Edm.String" MaxLength="225"/>
+        <Property Name="emailAddress" Type="Edm.String" MaxLength="241"/>
+        <Property Name="phoneNumber" Type="Edm.String" MaxLength="30"/>
+        <Property Name="cellPhoneNumber" Type="Edm.String" MaxLength="30"/>
+        <Property Name="faxNumber" Type="Edm.String" MaxLength="30"/>
+        <Property Name="country" Type="Edm.String" MaxLength="40"/>
+        <Property Name="region" Type="Edm.String" MaxLength="40"/>
+        <Property Name="cityName" Type="Edm.String" MaxLength="40"/>
+        <Property Name="postalCode" Type="Edm.String" MaxLength="40"/>
+        <Property Name="streetName" Type="Edm.String" MaxLength="128"/>
+      </EntityType>
+      <Annotation Term="Core.SchemaVersion" String="1.0"/>
+      <Annotations Target="service.ProjectServiceV2.EntityContainer">
+        <Annotation Term="Core.Description" String="Project Service"/>
+        <Annotation Term="Core.LongDescription" String="This API allows you to work with groups and group memberships in SAP Project and Resource Management. Groups are mainly used for specifying authorization groups within a collaboration project."/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.GroupMemberships">
+        <Annotation Term="Core.Description" String="Group Memberships"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.EntityContainer/GroupMemberships">
+        <Annotation Term="Capabilities.SearchRestrictions">
+          <Record Type="Capabilities.SearchRestrictionsType">
+            <PropertyValue Property="Searchable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.ReadRestrictions">
+          <Record Type="Capabilities.ReadRestrictionsType">
+            <PropertyValue Property="Description" String="Read all the members of the groups in the projects"/>
+            <PropertyValue Property="LongDescription" String="Allows searching for groups by providing corresponding request parameters."/>
+            <PropertyValue Property="ReadByKeyRestrictions">
+              <Record Type="Capabilities.ReadByKeyRestrictionsType">
+                <PropertyValue Property="Description" String="Read a specific member of a group by key."/>
+                <PropertyValue Property="LongDescription" String="Retrieves the details of a specific member of a group by specifying its groupMembershipId, that you may have received from a different API call."/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Description" String="Adds a new member to the group specified by groupId passed in the request payload."/>
+            <PropertyValue Property="LongDescription" String="The person specified by the businessPatnerId is added to the group."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Description" String="Remove a member of a group."/>
+            <PropertyValue Property="LongDescription" String="Removes the person from the group indicated by the groupMembershipId."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.GroupMemberships/groupMembershipId">
+        <Annotation Term="Core.Description" String="When a person is added to a group, a groupMembershipId(unique,technical identifier) is assigned to that person(where groupId is the foreign key)"/>
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="729cb8d9-f9d0-462a-896c-935cde6c15a5"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.GroupMemberships/groupId">
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="df3e8379-d3da-49c2-a10f-72d0a62af11e"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.GroupMemberships/businessPartnerId">
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="09e99ce1-5c3b-3b4f-b37c-c791ca697e2a"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups">
+        <Annotation Term="Core.Description" String="Group"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.EntityContainer/Groups">
+        <Annotation Term="Capabilities.SearchRestrictions">
+          <Record Type="Capabilities.SearchRestrictionsType">
+            <PropertyValue Property="Searchable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Description" String="Create a group."/>
+            <PropertyValue Property="LongDescription" String="Creates a group within a project."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.ReadRestrictions">
+          <Record Type="Capabilities.ReadRestrictionsType">
+            <PropertyValue Property="Description" String="Read all the user created groups of the projects."/>
+            <PropertyValue Property="LongDescription" String="Allows searching for groups by providing corresponding request parameters."/>
+            <PropertyValue Property="ReadByKeyRestrictions">
+              <Record Type="Capabilities.ReadByKeyRestrictionsType">
+                <PropertyValue Property="Description" String="Read a group by key."/>
+                <PropertyValue Property="LongDescription" String="Retrieves the details of a specific group by specifying its group Id, that you may have received from a different API call."/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Description" String="Update a group."/>
+            <PropertyValue Property="LongDescription" String="Updates the group metadata."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Description" String="Delete a group."/>
+            <PropertyValue Property="LongDescription" String="Deletes the group within the project."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.NavigationRestrictions">
+          <Record Type="Capabilities.NavigationRestrictionsType">
+            <PropertyValue Property="RestrictedProperties">
+              <Collection>
+                <Record Type="Capabilities.NavigationPropertyRestriction">
+                  <PropertyValue Property="NavigationProperty" NavigationPropertyPath="toGroupMemberships"/>
+                  <PropertyValue Property="TopSupported" Bool="false"/>
+                  <PropertyValue Property="SkipSupported" Bool="false"/>
+                  <PropertyValue Property="SortRestrictions">
+                    <Record Type="Capabilities.SortRestrictionsType">
+                      <PropertyValue Property="Sortable" Bool="false"/>
+                    </Record>
+                  </PropertyValue>
+                  <PropertyValue Property="InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                      <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                  </PropertyValue>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups/groupId">
+        <Annotation Term="Core.Description" String="Unique, technical identifier of the group"/>
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="df3e8379-d3da-49c2-a10f-72d0a62af11e"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups/type">
+        <Annotation Term="Core.Description" String="The type of group"/>
+        <Annotation Term="Core.LongDescription" String="There are three type of groups: EVERYONE, PROJECT_PARTNER, and GROUP. The EVERYONE AND PROJECT_PARTNER groups are created automatically and cannot be modified (change name, change description, add/remove members). \n\n Examples of groups of type GROUP are project administrator group and manually created groups. These can be modified (change name, change description, add/remove members)."/>
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="GROUP"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <PropertyValue Property="Value" String="GROUP"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <PropertyValue Property="Value" String="PROJECT_PARTNER"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <PropertyValue Property="Value" String="EVERYONE"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups/projectId">
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Description" String="Scenario"/>
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="9fa33af6-ef34-4aa3-9c45-238fc976a9c5"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups/name">
+        <Annotation Term="Core.Description" String="Name"/>
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="Group-1 name"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.Groups/description">
+        <Annotation Term="Core.Example">
+          <Record Type="Core.PrimitiveExampleValue">
+            <PropertyValue Property="Value" String="This is a group created on API Hub"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="service.ProjectServiceV2.EntityContainer/Users">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,112 @@
+{
+  "name": "Dev",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap-cloud-sdk/http-client": "^4.0.2",
+    "@sap-cloud-sdk/util": "^4.0.2",
+    "@sap/cds": "^8",
+    "@sap/low-code-event-handler": "^1.2.5",
+    "@sap/xsenv": ">=3.3.2 <3.3.3",
+    "@sap/xssec": "^4.8.0",
+    "express": "^4",
+    "hdb": "^0.19.12",
+    "passport": "^0.7.0",
+    "@sap/xb-msg-amqp-v100": "^0",
+    "@sap-cloud-sdk/connectivity": "^3",
+    "@sap-cloud-sdk/resilience": "^3"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.10.0",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
+    "@sap/dev-cap-tools": "^1.31.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "start-local": "npm run generate-entry-point && npm run cds-watch",
+    "generate-entry-point": "dev-cap-tools gen-entrypoint",
+    "cds-watch": "cds watch --open",
+    "debug": "DEBUG=remote cds serve --profile hybrid",
+    "watch": "cds w --profile hybrid"
+  },
+  "cds": {
+    "sql": {
+      "native_hana_associations": false
+    },
+    "requires": {
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa",
+        "messaging": {
+          "kind": "enterprise-messaging-shared",
+          "format": "cloudevents"
+        }
+      },
+      "auth": {
+        "[development]": {
+          "kind": "dummy"
+        },
+        "[hybrid]": {
+          "kind": "dummy"
+        },
+        "[production]": {
+          "kind": "xsuaa"
+        }
+      },
+      "ProjectServiceV2": {
+        "kind": "odata-v2",
+        "model": "srv/external/ProjectServiceV2",
+        "service": "service.ProjectServiceV2",
+        "[hybrid]": {
+          "credentials": {
+            "destination": "ProjectService-api",
+            "path": "/SAPPIN/ProjectService/v1/odata/v2"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "url": "https://sandbox.api.sap.com/SAPPIN/ProjectService/v1/odata/v2"
+          }
+        }
+      },
+      "myService2": {
+        "kind": "odata-v4",
+        "credentials": {
+          "url": "http://localhost:4004/myService2"
+        }
+      },
+      "ProjectServiceV1": {
+        "kind": "odata-v2",
+        "model": "srv/external/ProjectServiceV2",
+        "credentials": {
+          "destination": "ProjectService-api",
+          "path": "/SAPPIN/ProjectService/v1/odata/v2"
+        }
+      },
+      "ProjectDemand": {
+        "kind": "odata-v2",
+        "model": "srv/external/ProjectDemand",
+        "[hybrid]": {
+          "credentials": {
+            "url": "https://sandbox.api.sap.com",
+            "path": "/s4hanacloud/sap/opu/odata/sap/API_PROJECTDEMAND"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "ProjectDemand-api",
+            "path": "/s4hanacloud/sap/opu/odata/sap/API_PROJECTDEMAND"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      }
+    }
+  },
+  "lcap": true
+}
