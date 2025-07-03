@@ -2,10 +2,10 @@ module.exports = (srv => {
 
     srv.on('READ', ['Groups', 'GroupMemberships2'], async (req) => {
         const projectExtSrv = await cds.connect.to("ProjectServiceV2");
-        const results = await projectExtSrv.run(req.query);
-        // const results = await projectExtSrv.send({
-        //     query: req.query, headers: { APIKey: process.env.API_KEY } 
-        // });
+        // const results = await projectExtSrv.run(req.query);
+        const results = await projectExtSrv.send({
+            query: req.query, headers: { APIKey: process.env.API_KEY } 
+        });
         req.reply(results);
     });
 
@@ -51,5 +51,13 @@ module.exports = (srv => {
         highpriorityTasks.$count = highpriorityTasks.length;
         req.reply(highpriorityTasks);
 
+    });
+
+    srv.on('READ', ['ProjectDemandStatus'], async (req) => {
+        const projectExtSrv = await cds.connect.to("ProjectDemandStatus_Read");
+        const results = await projectExtSrv.send({
+            query: req.query, headers: { APIKey: process.env.API_KEY } 
+        });
+        req.reply(results);
     });
 })

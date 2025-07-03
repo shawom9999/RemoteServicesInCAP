@@ -32,7 +32,17 @@ GET {{server}}/service/Projects/getProjectsWithHighPriorityTasks()
 ### Mashup of Project Demands
 
 ## GET Project Demands (local entity)
-GET {{server}}/myService2/ProjectDemand
+GET {{server}}/myService2/ProjectDemandLink
+
+GET {{server}}/myService2/ProjDemand
 
 ## GET ProjectDemands from local service and associated demand details from external service
-GET {{server}}/myService2/ProjectDemand?$expand=projectDemand
+GET {{server}}/myService2/ProjectDemandLink?$expand=projectDemand
+
+
+## GET Project demand mocked
+GET {{server}}/odata/v4/project-demand/A_ProjectDemand
+
+
+## GET ProjectDemandStatus
+GET {{server}}/service/Projects/ProjectDemandStatus

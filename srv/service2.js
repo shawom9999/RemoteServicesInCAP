@@ -23,7 +23,7 @@ module.exports = (srv => {
         })
     });
 
-    srv.on('READ', ['Groups', 'ProjectDemand.A_ProjectDemand'], async (req) => {
+    srv.on('READ', ['Groups'], async (req) => {
         const projectExtSrv = await cds.connect.to("ProjectServiceV2");
         // const results = await projectExtSrv.run(req.query);
         const results = await projectExtSrv.send({
@@ -32,7 +32,7 @@ module.exports = (srv => {
         req.reply(results);
     });
 
-    srv.on('READ', ['ProjectDemand'], async (req,next) => {
+    srv.on('READ', ['ProjectDemandLink'], async (req,next) => {
 
         if (!req.query.SELECT.columns) return next();
 
@@ -69,5 +69,13 @@ module.exports = (srv => {
         }
 
         return aProjectDemands;
+    });
+
+    srv.on('READ', ['ProjDemand'], async (req) => {
+        const projectExtSrv = await cds.connect.to("ProjectDemand");
+        const results = await projectExtSrv.send({
+            query: req.query, headers: { APIKey: process.env.API_KEY } 
+        });
+        req.reply(results);
     });
 })

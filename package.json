@@ -32,7 +32,7 @@
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
     "debug": "DEBUG=remote cds serve --profile hybrid",
-    "watch": "cds w --profile hybrid"
+    "watch": "DEBUG=remote cds w --profile hybrid"
   },
   "cds": {
     "sql": {
@@ -80,14 +80,6 @@
           "url": "http://localhost:4004/myService2"
         }
       },
-      "ProjectServiceV1": {
-        "kind": "odata-v2",
-        "model": "srv/external/ProjectServiceV2",
-        "credentials": {
-          "destination": "ProjectService-api",
-          "path": "/SAPPIN/ProjectService/v1/odata/v2"
-        }
-      },
       "ProjectDemand": {
         "kind": "odata-v2",
         "model": "srv/external/ProjectDemand",
@@ -101,6 +93,18 @@
           "credentials": {
             "destination": "ProjectDemand-api",
             "path": "/s4hanacloud/sap/opu/odata/sap/API_PROJECTDEMAND"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      },
+      "ProjectDemandStatus_Read": {
+        "kind": "odata",
+        "model": "srv/external/ProjectDemandStatus_Read",
+        "[development]": {
+          "credentials": {
+            "url": "https://sandbox.api.sap.com/s4hanacloud",
+            "path": "/sap/opu/odata4/sap/api_projectdemandstatus/srvd_a2x/sap/projectdemandstatus/0001"
           }
         },
         "csrf": true,

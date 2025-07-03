@@ -1,3 +1,4 @@
+using { ProjectDemandStatus_Read } from '../srv/external/ProjectDemandStatus_Read.cds'; 
 namespace Dev;
 using { cuid, managed, Currency } from '@sap/cds/common';
 
